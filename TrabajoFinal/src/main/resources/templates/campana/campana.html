@@ -1,0 +1,89 @@
+	<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<meta charset="UTF-8"></meta>
+
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container">
+		<div class="card bg-light">
+			<div class="card-header text-black bg-blue">Registro de
+				Campañas</div>
+			<form th:action="@{/campanas/guardar}" th:object="${campana}"
+				method="post">
+				<div class="form-group row">
+					<label for="idCampana" class="col-sm-2 col-form-label">Id</label>
+					<div class="col-sm-6">
+						<input type="text" th:field="*{idCampana}" class="form-control" />
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="nombreCampana" class="col-sm-2 col-form-label">Campaña</label>
+					<div class="col-sm-6">
+						<input type="text" th:field="*{nombreCampana}"
+							class="form-control" th:errorclass="'form-control alert-info'" />
+						<small th:if="${#fields.hasErrors('nombreCampana')}"
+							th:errors="*{nombreCampana}"></small>
+					</div>
+				</div>
+				
+					<div class="form-group row">
+					<label for="fechaInicioCampana" class="col-sm-2 col-form-label">Fecha
+						de Inicio de la Campaña</label>
+					<div class="col-sm-6">
+						<input type="date" th:field="*{fechaInicioCampana}"
+							class="form-control" th:errorclass="'form-control alert-danger'" />
+						<small th:if="${#fields.hasErrors('fechaInicioCampana')}"
+							th:errors="*{fechaInicioCampana}"></small>
+					</div>
+				</div>
+				
+				<div class="form-group row">
+					<label for="fechaFinCampana" class="col-sm-2 col-form-label">Fecha
+						de Fin de la Campaña</label>
+					<div class="col-sm-6">
+						<input type="date" th:field="*{fechaFinCampana}"
+							class="form-control" th:errorclass="'form-control alert-danger'" />
+						<small th:if="${#fields.hasErrors('fechaFinCampana')}"
+							th:errors="*{fechaFinCampana}"></small>
+					</div>
+				</div>
+				
+					<div class="form-group row">
+					<label for="descuento" class="col-sm-2 col-form-label">Descuento</label>
+					<div class="col-sm-6">
+						<input type="text" th:field="*{descuentoCampana}"
+							class="form-control" th:errorclass="'form-control alert-danger'"
+							required="required" /> <small class="form-text text-danger"
+							th:if="${#fields.hasErrors('descuentoCampana')}"
+							th:errors="*{descuentoCampana}"></small>
+					</div>
+				</div>
+				
+
+
+
+
+
+
+				<div class="form-group row">
+					<div class="col-sm-6" align="center">
+						<input type="submit" value="Registrar" class="btn btn-primary" />
+
+						<a href="/campanas/listar" class="btn btn-danger">Cancelar</a>
+					</div>
+				</div>
+
+				<p th:text="${mensaje}" class="form-text text-danger"></p>
+			</form>
+		</div>
+	</div>
+	<div th:if="${mensaje}" class="alert alert-info">
+		<p th:text="${mensaje}"></p>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

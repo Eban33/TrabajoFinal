@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<meta charset="UTF-8"></meta>
+
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container">
+		<div align="right">
+			<a th:href="@{/campanas/nueva}"
+				id="add-row" type="button" class="btn btn-warning">Nueva</a>
+		</div>
+		<div>
+			<form th:action="@{/campanas/buscar}" method="post"
+				th:object="${campana}">
+				<div class="form-group">
+
+					<label for="campana">Buscar:</label> <input type="text"
+						class="form-control" th:field="*{nombreCampana}" id="campana"></input>
+					<div align="right">
+						<button type="submit" class="btn btn-Dark">Aceptar</button>
+						<a href="/campanas/listar" class="btn btn-danger">Cancelar</a>
+					</div>
+				</div>
+
+			</form>
+
+		</div>
+
+		<div class="card">
+			<div class="card-header text-white bg-dark mb-3">Reporte de
+				Campañas</div>
+			<div class="card-body">
+
+				<div class="table-responsive">
+					<table class="table table-white">
+						<thead class="bg-dark mb-3 text-white">
+							<tr>
+								<th>Id</th>
+								<th>Campaña</th>
+								<th>Fecha de Inicio Campaña</th>
+								<th>Fecha de Fin Campaña</th>
+								<th>Descuento</th>
+								<th align="center">Operación</th>
+								<th align="center">Operación</th>
+							</tr>
+						</thead>
+						<tbody id="campana-list">
+							<tr th:each="campana:${listaCampanas}">
+								<td th:text="${campana.idCampana}"></td>
+								<td th:text="${campana.nombreCampana}"></td>
+								<td th:text="${campana.fechaInicioCampana}"></td>
+								<td th:text="${campana.fechaFinCampana}"></td>
+						        <td th:text="${campana.descuentoCampana}"></td>
+								
+								<td align="center"><a
+									th:href="@{/campanas/eliminar?id=}+${campana.idCampana}"> <span
+										class="glyphicon glyphicon-remove-sign"></span></a></td>
+								<td align="center"><a
+									th:href="@{'/campanas/detalle/' + ${campana.idCampana}}"><span
+										class="glyphicon glyphicon-wrench"></span></a></td>
+							</tr>
+						</tbody>
+					</table>
+					<p th:text="${mensaje}" ></p>
+					<div th:if="${mensaje}" class="alert alert-info">
+						<p th:text="${mensaje}"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
+
+
+
+
